@@ -51,6 +51,26 @@ describe('Model.attr', function() {
   })
 });
 
+describe("Model.attr.defaultValue", function() {
+  var timestamp1 = new Date()
+  var timestamp2 = new Date()
+
+  it("adds a defaultValue without a function", function() {
+    var Pet = model('Pet').attr('name', {defaultValue: 'Samson'})
+    expect(Pet._defaults).to.have.property('name', 'Samson');
+  })
+  
+  it("adds a defaultValue using a function #1", function() {
+    var Pet = model('Pet').attr('name', {defaultValue: function() { return timestamp1 }})
+    expect(Pet._defaults).to.have.property('name', timestamp1)
+  })
+
+  it("adds a defaultValue using a function #2", function() {
+    var Pet = model('Pet').attr('name', {defaultValue: function() { return timestamp2 }})
+    expect(Pet._defaults).to.have.property('name', timestamp2)
+  })
+})
+
 describe("Model.validate", function() {
   var User;
 
